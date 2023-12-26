@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <style>
     body {
@@ -209,8 +210,8 @@
     <div class="version">v0.3.1 BETA</div>
   </div>
   <script>
-    const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke?ref=update/revamp-icon-structure';
-    const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill?ref=update/revamp-icon-structure';
+    const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
+    const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
 
     let currentIcons = []; // Global variable to store the current set of icons
 
@@ -306,9 +307,19 @@
       };
     }
 
+    function checkGitHubRateLimit() {
+      fetch('https://api.github.com/rate_limit')
+        .then(response => response.json())
+        .then(data => {
+          console.log('GitHub Rate Limit:', data.rate);
+        })
+        .catch(error => console.error('Error fetching rate limit:', error));
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       loadIcons(); // Initial load of icons
       handleSearch(); // Set up search functionality
+      checkGitHubRateLimit();
     });
     window.onload = function () {
       document.getElementById('search-input').focus();
