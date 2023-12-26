@@ -106,6 +106,14 @@
     select option {
       padding: 8px;
     }
+    .no-results {
+    /* Example styling; adjust as needed */
+    color: red;
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: center;
+}
+
   </style>
 </head>
 
@@ -133,7 +141,7 @@
         fill="black" />
     </svg>
     <div class="version">v0.2.0 BETA</div>
-
+    <input type="text" id="search-input" placeholder="Search icons...">
     <select id="icon-style" onchange="loadIcons()">
       <option value="stroke">Outline</option>
       <option value="fill">Fill</option>
@@ -145,49 +153,87 @@
     const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
     const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
 
+    let currentIcons = []; // Global variable to store the current set of icons
+
     function loadIcons() {
-      const style = document.getElementById('icon-style').value;
-      const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
+        const style = document.getElementById('icon-style').value;
+        const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
 
-      fetch(source)
-        .then(response => response.json())
-        .then(files => {
-          // Sort files alphabetically in a case-insensitive manner
-          files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+        fetch(source)
+            .then(response => response.json())
+            .then(files => {
+                files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
-          const iconFetchPromises = files.map(file => {
-            return fetch(file.download_url)
-              .then(response => response.text())
-              .then(svg => ({ svg, name: file.name }));
-          });
+                const iconFetchPromises = files.map(file => {
+                    return fetch(file.download_url)
+                        .then(response => response.text())
+                        .then(svg => ({ svg, name: file.name }));
+                });
 
-          // Wait for all icons to be fetched
-          Promise.all(iconFetchPromises)
-            .then(icons => {
-              const grid = document.getElementById('icons-grid');
-              grid.innerHTML = '';
-
-              icons.forEach(({ svg, name }) => {
-                const icon = document.createElement('span');
-                icon.classList.add('icon');
-                icon.innerHTML = svg;
-                icon.addEventListener('click', () => handleIconClick(svg, name));
-
-                grid.appendChild(icon);
-              });
-            });
-        })
-        .catch(error => console.error('Error loading icons:', error));
+                Promise.all(iconFetchPromises)
+                    .then(icons => {
+                        currentIcons = icons; // Update the global variable with fetched icons
+                        displayIcons(currentIcons); // Display icons initially
+                    });
+            })
+            .catch(error => console.error('Error loading icons:', error));
     }
+
+    function displayIcons(icons, searchTerm = '') {
+    const grid = document.getElementById('icons-grid');
+    grid.innerHTML = ''; // Clear the grid
+
+    const filteredIcons = icons.filter(icon => 
+        icon.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    if (filteredIcons.length === 0) {
+        const noResultsMsg = document.createElement('div');
+        noResultsMsg.textContent = 'No results found';
+        noResultsMsg.classList.add('no-results'); // Add a class for styling if needed
+        grid.appendChild(noResultsMsg);
+    } else {
+        filteredIcons.forEach(({ svg, name }) => {
+            const iconElement = document.createElement('span');
+            iconElement.classList.add('icon');
+            iconElement.innerHTML = svg;
+            iconElement.addEventListener('click', () => handleIconClick(svg, name));
+            grid.appendChild(iconElement);
+        });
+    }
+}
 
 
     function handleIconClick(svg, name) {
-      // Extract the name without the extension if needed
-      const iconName = name.replace(/\.[^/.]+$/, "");
-      window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name: iconName } }, '*');
+        const iconName = name.replace(/\.[^/.]+$/, "");
+        window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name: iconName } }, '*');
     }
-    loadIcons(); // Load icons initially
-  </script>
+
+    function handleSearch() {
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', debounce(() => {
+        const searchTerm = searchInput.value.trim();
+        console.log('Search Term:', searchTerm); // Debugging log
+        displayIcons(currentIcons, searchTerm);
+    }, 250));
+}
+
+
+    function debounce(func, delay) {
+        let debounceTimer;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), delay);
+        };
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadIcons(); // Initial load of icons
+        handleSearch(); // Set up search functionality
+    });
+</script>
 </body>
 
 </html>
