@@ -1,10 +1,7 @@
-<!DOCTYPE html>
 <html>
-
 <head>
   <style>
     body {
-      font-family: Inter;
       margin: 0;
       padding: 8px;
       background-color: #fff;
@@ -63,8 +60,8 @@
     }
 
     .logo {
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: auto;
     }
 
     .version {
@@ -75,7 +72,7 @@
     }
 
     select {
-      padding: 8px;
+      font-family: Inter;
       margin-right: 24px;
       margin-left: auto;
       /* Pushes the select to the right */
@@ -87,35 +84,36 @@
     }
 
     select:hover {
-      border-color: #ccc;
-    }
-
-    select option {
-      padding: 8px;
+      border-color: #6d6d6d;
     }
 
     .no-results {
-      /* Example styling; adjust as needed */
-      color: #414141;
+      font-family: Inter;
+      color: 6D6D6D;
       font-size: 14px;
       font-weight: 600;
       margin-top: 20px;
       margin-left: 128px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0px;
+
     }
 
     .search-container {
+
       display: flex;
       justify-content: space-between;
       padding: 10px;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
+      width: 380px;
       background-color: #fff;
       display: flex;
       align-items: center;
-      padding: 16px;
+      padding: 12px 16px;
       z-index: 1000;
       margin-bottom: 16px;
       border-bottom: #d1d1d1 1px solid;
@@ -123,12 +121,18 @@
     }
 
     #search-input {
+      font-family: Inter;
+      font-size: 14px;
       width: 70%;
       padding: 10px;
       margin: 0px 12px;
       border: none;
-      border-bottom: #bdbdbd 1px solid;
+      /* border-bottom: #bdbdbd 1px solid; */
 
+    }
+
+    #search-input:focus {
+      outline: none;
     }
 
     #search-input::placeholder {
@@ -136,14 +140,15 @@
       color: #999;
     }
 
-    #icon-style {
-      padding: 10px;
+    #selection {
+      padding: 8px;
       border: 1px solid #ddd;
-      border-radius: 4px;
+      border-radius: 8px;
       background-color: white;
     }
 
     .footer {
+
       position: fixed;
       bottom: 0;
       left: 0;
@@ -159,10 +164,6 @@
       border-top: #d1d1d1 1px solid;
       /* Light grey background */
     }
-
-    .version {
-      color: #333;
-    }
   </style>
 </head>
 
@@ -175,7 +176,7 @@
       </svg>
     </span>
     <input type="text" id="search-input" placeholder="Search icons...">
-    <select id="icon-style" onchange="loadIcons()">
+    <select id="selection" onchange="loadIcons()">
       <option value="stroke">Outline</option>
       <option value="fill">Fill</option>
     </select>
@@ -183,7 +184,7 @@
   <div id="icons-grid" class="icons-grid"></div>
 
   <div class="footer">
-    <svg width="87" height="20" viewBox="0 0 87 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="logo" width="87" height="20" viewBox="0 0 87 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <a href="https://github.com/abhishekshankr/AIcons" target="_blank">
         <path
           d="M0.470055 19.6903C0.33078 19.6903 0.217618 19.6559 0.130571 19.5871C0.0435236 19.5183 0 19.4237 0 19.3032L0.0522284 19.0968L6.50243 0.412902C6.60689 0.137634 6.8071 0 7.10306 0H11.2813C11.5773 0 11.7775 0.137634 11.882 0.412902L18.3322 19.0968L18.3844 19.3032C18.3844 19.4237 18.3409 19.5183 18.2538 19.5871C18.1668 19.6559 18.0536 19.6903 17.9143 19.6903H14.0233C13.7274 19.6903 13.5358 19.5441 13.4488 19.2516L12.6393 16.5935C12.5522 16.3011 12.3607 16.1548 12.0648 16.1548H6.31963C6.02367 16.1548 5.83217 16.3011 5.74512 16.5935L4.93558 19.2516C4.84853 19.5441 4.65703 19.6903 4.36107 19.6903H0.470055ZM10.6807 12.1548C10.8548 12.1548 10.9767 12.1032 11.0463 12C11.1333 11.8796 11.1508 11.7333 11.0985 11.5613L9.53168 6.24516C9.51427 6.14193 9.47074 6.05591 9.40111 5.9871C9.33147 5.91828 9.26183 5.88387 9.19219 5.88387C9.05292 5.88387 8.93976 6.0043 8.85271 6.24516L7.28586 11.5613C7.26845 11.6129 7.25974 11.6817 7.25974 11.7677C7.25974 12.0258 7.40772 12.1548 7.70368 12.1548H10.6807Z"
@@ -214,7 +215,7 @@
     let currentIcons = []; // Global variable to store the current set of icons
 
     function loadIcons() {
-      const style = document.getElementById('icon-style').value;
+      const style = document.getElementById('selection').value;
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
 
       fetch(source)
@@ -247,8 +248,26 @@
 
       if (filteredIcons.length === 0) {
         const noResultsMsg = document.createElement('div');
-        noResultsMsg.textContent = 'No results found';
         noResultsMsg.classList.add('no-results'); // Add a class for styling if needed
+
+        // Create an SVG element using innerHTML
+        const svgElement = document.createElement('div');
+        svgElement.innerHTML = `
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 9C14.5523 9 15 9.44771 15 10V15C15 15.5523 14.5523 16 14 16C13.4477 16 13 15.5523 13 15V10C13 9.44771 13.4477 9 14 9Z" fill="#6D6D6D"/>
+            <path d="M15 18C15 18.5523 14.5523 19 14 19C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17C14.5523 17 15 17.4477 15 18Z" fill="#6D6D6D"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14C24 16.4013 23.1536 18.6048 21.743 20.3287L27.2072 25.7929C27.5977 26.1834 27.5977 26.8166 27.2072 27.2071C26.8167 27.5976 26.1835 27.5976 25.793 27.2071L20.3288 21.7429C18.6049 23.1536 16.4013 24 14 24C8.47715 24 4 19.5228 4 14ZM14 6C9.58172 6 6 9.58172 6 14C6 18.4183 9.58172 22 14 22C18.4183 22 22 18.4183 22 14C22 9.58172 18.4183 6 14 6Z" fill="#6D6D6D"/>
+        </svg>
+    `;
+
+        // Append SVG to the div
+        noResultsMsg.appendChild(svgElement);
+
+        // Set the text content
+        const textElement = document.createElement('p');
+        textElement.textContent = 'No results found';
+        noResultsMsg.appendChild(textElement);
+
         grid.appendChild(noResultsMsg);
       } else {
         filteredIcons.forEach(({ svg, name }) => {
@@ -291,6 +310,9 @@
       loadIcons(); // Initial load of icons
       handleSearch(); // Set up search functionality
     });
+    window.onload = function () {
+      document.getElementById('search-input').focus();
+    };
   </script>
 </body>
 
