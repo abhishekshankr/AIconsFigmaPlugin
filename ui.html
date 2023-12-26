@@ -7,7 +7,6 @@
       font-family: Inter;
       margin: 0;
       padding: 8px;
-      /* Adjust padding as needed */
       background-color: #fff;
     }
 
@@ -47,56 +46,36 @@
       pointer-events: none;
     }
 
-    /* Style the scrollbar - width and background */
     ::-webkit-scrollbar {
       width: 10px;
       background-color: #f5f5f5;
-      /* Light grey background */
     }
 
-    /* Style the scrollbar thumb - the part that's draggable */
     ::-webkit-scrollbar-thumb {
       background-color: #c5c5c5;
-      /* Darker grey thumb */
       border-radius: 10px;
-      /* Rounded corners on the thumb */
       border: 2px solid #f5f5f5;
-      /* Creates a border around the thumb */
     }
 
-    /* Style the scrollbar thumb when hovering or clicking on it */
     ::-webkit-scrollbar-thumb:hover {
       background-color: #555;
-      /* Even darker color on hover */
     }
 
     .header {
-
-
       position: fixed;
-      /* Fixed positioning */
       top: 0;
-      /* Align to the top of the viewport */
       left: 0;
-      /* Align to the left of the viewport */
       width: 100%;
-      /* Header width is the full width of the viewport */
       background-color: #fff;
-      /* Background color of the header */
       display: flex;
       align-items: center;
       padding: 16px;
-      /* Add padding inside the header */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      /* Optional: add shadow for better separation */
       z-index: 1000;
-      /* Adjust space below the header */
-
       margin-bottom: 16px;
+      border-bottom: #d1d1d1 1px solid;
     }
 
     .logo {
-      /* Adjust width and height as needed based on your SVG */
       width: 50px;
       height: auto;
     }
@@ -105,47 +84,34 @@
       font-family: Inter;
       margin-left: 8px;
       font-size: 10px;
-      /* Adjust font size as needed */
       color: #666;
-      /* Adjust color as needed */
     }
 
-    /* Custom styles for the select element */
     select {
       padding: 8px;
       margin-right: 24px;
       margin-left: auto;
       /* Pushes the select to the right */
       border: 1px solid #ddd;
-      /* Custom border */
       border-radius: 8px;
-      /* Rounded borders */
       outline: none;
-      /* Remove the default focus outline */
       cursor: pointer;
       background-color: #f8f8f8;
-      /* Background of the select */
     }
 
     select:hover {
       border-color: #ccc;
-      /* Darker border on hover */
     }
 
-    /* Option styles */
     select option {
       padding: 8px;
-      /* Padding inside options */
-    }
-
-    .content {
-      margin-top: 70px;
     }
   </style>
 </head>
 
 <body>
   <div class="header">
+
     <svg width="87" height="20" viewBox="0 0 87 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M0.470055 19.6903C0.33078 19.6903 0.217618 19.6559 0.130571 19.5871C0.0435236 19.5183 0 19.4237 0 19.3032L0.0522284 19.0968L6.50243 0.412902C6.60689 0.137634 6.8071 0 7.10306 0H11.2813C11.5773 0 11.7775 0.137634 11.882 0.412902L18.3322 19.0968L18.3844 19.3032C18.3844 19.4237 18.3409 19.5183 18.2538 19.5871C18.1668 19.6559 18.0536 19.6903 17.9143 19.6903H14.0233C13.7274 19.6903 13.5358 19.5441 13.4488 19.2516L12.6393 16.5935C12.5522 16.3011 12.3607 16.1548 12.0648 16.1548H6.31963C6.02367 16.1548 5.83217 16.3011 5.74512 16.5935L4.93558 19.2516C4.84853 19.5441 4.65703 19.6903 4.36107 19.6903H0.470055ZM10.6807 12.1548C10.8548 12.1548 10.9767 12.1032 11.0463 12C11.1333 11.8796 11.1508 11.7333 11.0985 11.5613L9.53168 6.24516C9.51427 6.14193 9.47074 6.05591 9.40111 5.9871C9.33147 5.91828 9.26183 5.88387 9.19219 5.88387C9.05292 5.88387 8.93976 6.0043 8.85271 6.24516L7.28586 11.5613C7.26845 11.6129 7.25974 11.6817 7.25974 11.7677C7.25974 12.0258 7.40772 12.1548 7.70368 12.1548H10.6807Z"
@@ -169,7 +135,7 @@
     <div class="version">v0.2.0 BETA</div>
 
     <select id="icon-style" onchange="loadIcons()">
-      <option value="stroke">Stroke</option>
+      <option value="stroke">Outline</option>
       <option value="fill">Fill</option>
     </select>
   </div>
@@ -180,46 +146,46 @@
     const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
 
     function loadIcons() {
-  const style = document.getElementById('icon-style').value;
-  const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
+      const style = document.getElementById('icon-style').value;
+      const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
 
-  fetch(source)
-    .then(response => response.json())
-    .then(files => {
-      // Sort files alphabetically in a case-insensitive manner
-      files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      fetch(source)
+        .then(response => response.json())
+        .then(files => {
+          // Sort files alphabetically in a case-insensitive manner
+          files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
-      const iconFetchPromises = files.map(file => {
-        return fetch(file.download_url)
-          .then(response => response.text())
-          .then(svg => ({ svg, name: file.name }));
-      });
-
-      // Wait for all icons to be fetched
-      Promise.all(iconFetchPromises)
-        .then(icons => {
-          const grid = document.getElementById('icons-grid');
-          grid.innerHTML = '';
-
-          icons.forEach(({ svg, name }) => {
-            const icon = document.createElement('span');
-            icon.classList.add('icon');
-            icon.innerHTML = svg;
-            icon.addEventListener('click', () => handleIconClick(svg, name));
-
-            grid.appendChild(icon);
+          const iconFetchPromises = files.map(file => {
+            return fetch(file.download_url)
+              .then(response => response.text())
+              .then(svg => ({ svg, name: file.name }));
           });
-        });
-    })
-    .catch(error => console.error('Error loading icons:', error));
-}
+
+          // Wait for all icons to be fetched
+          Promise.all(iconFetchPromises)
+            .then(icons => {
+              const grid = document.getElementById('icons-grid');
+              grid.innerHTML = '';
+
+              icons.forEach(({ svg, name }) => {
+                const icon = document.createElement('span');
+                icon.classList.add('icon');
+                icon.innerHTML = svg;
+                icon.addEventListener('click', () => handleIconClick(svg, name));
+
+                grid.appendChild(icon);
+              });
+            });
+        })
+        .catch(error => console.error('Error loading icons:', error));
+    }
 
 
-function handleIconClick(svg, name) {
-  // Extract the name without the extension if needed
-  const iconName = name.replace(/\.[^/.]+$/, "");
-  window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name: iconName } }, '*');
-}
+    function handleIconClick(svg, name) {
+      // Extract the name without the extension if needed
+      const iconName = name.replace(/\.[^/.]+$/, "");
+      window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name: iconName } }, '*');
+    }
     loadIcons(); // Load icons initially
   </script>
 </body>
