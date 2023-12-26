@@ -21,7 +21,8 @@
       justify-content: flex-start;
       align-items: flex-start;
       width: 100%;
-      margin-top: 70px;
+      margin-top: 60px;
+      margin-bottom: 60px;
     }
 
     .icon {
@@ -61,23 +62,9 @@
       background-color: #555;
     }
 
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: #fff;
-      display: flex;
-      align-items: center;
-      padding: 16px;
-      z-index: 1000;
-      margin-bottom: 16px;
-      border-bottom: #d1d1d1 1px solid;
-    }
-
     .logo {
       width: 50px;
-      height: auto;
+      height: 50px;
     }
 
     .version {
@@ -108,19 +95,89 @@
     }
     .no-results {
     /* Example styling; adjust as needed */
-    color: red;
-    font-size: 16px;
+    color: #414141;
+    font-size: 14px;
+    font-weight: 600;
     margin-top: 20px;
+    margin-left: 128px;
     text-align: center;
 }
+.search-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      z-index: 1000;
+      margin-bottom: 16px;
+      border-bottom: #d1d1d1 1px solid; /* Light grey background */
+    }
 
+    #search-input {
+        width: 70%;
+        padding: 10px;
+        margin: 0px 12px;
+        border: none;
+        border-bottom: #bdbdbd 1px solid;
+        
+    }
+
+    #search-input::placeholder {
+        /* Styling for placeholder text */
+        color: #999;
+    }
+
+    #icon-style {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: white;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 345px;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content:space-between;
+        align-items: center;
+        padding: 16px 24px;
+        background-color: #ffffff; /* Light grey background */
+        border-top: #d1d1d1 1px solid; /* Light grey background */
+    }
+
+    .version {
+        color: #333;
+    }
   </style>
 </head>
 
 <body>
-  <div class="header">
+  <div class="search-container">
+    <span><svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M14 4C8.47715 4 4 8.47715 4 14C4 19.5228 8.47715 24 14 24C16.4013 24 18.6049 23.1536 20.3288 21.7429L25.793 27.2071C26.1835 27.5976 26.8167 27.5976 27.2072 27.2071C27.5977 26.8166 27.5977 26.1834 27.2072 25.7929L21.743 20.3287C23.1536 18.6048 24 16.4013 24 14C24 8.47715 19.5228 4 14 4ZM6 14C6 9.58172 9.58172 6 14 6C18.4183 6 22 9.58172 22 14C22 18.4183 18.4183 22 14 22C9.58172 22 6 18.4183 6 14Z" fill="grey"/>
+      </svg>      
+      </span>
+    <input type="text" id="search-input" placeholder="Search icons...">
+    <select id="icon-style" onchange="loadIcons()">
+        <option value="stroke">Outline</option>
+        <option value="fill">Fill</option>
+    </select>
+</div>
+  <div id="icons-grid" class="icons-grid"></div>
 
+  <div class="footer">
     <svg width="87" height="20" viewBox="0 0 87 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <a href="https://github.com/abhishekshankr/AIcons" target="_blank">
       <path
         d="M0.470055 19.6903C0.33078 19.6903 0.217618 19.6559 0.130571 19.5871C0.0435236 19.5183 0 19.4237 0 19.3032L0.0522284 19.0968L6.50243 0.412902C6.60689 0.137634 6.8071 0 7.10306 0H11.2813C11.5773 0 11.7775 0.137634 11.882 0.412902L18.3322 19.0968L18.3844 19.3032C18.3844 19.4237 18.3409 19.5183 18.2538 19.5871C18.1668 19.6559 18.0536 19.6903 17.9143 19.6903H14.0233C13.7274 19.6903 13.5358 19.5441 13.4488 19.2516L12.6393 16.5935C12.5522 16.3011 12.3607 16.1548 12.0648 16.1548H6.31963C6.02367 16.1548 5.83217 16.3011 5.74512 16.5935L4.93558 19.2516C4.84853 19.5441 4.65703 19.6903 4.36107 19.6903H0.470055ZM10.6807 12.1548C10.8548 12.1548 10.9767 12.1032 11.0463 12C11.1333 11.8796 11.1508 11.7333 11.0985 11.5613L9.53168 6.24516C9.51427 6.14193 9.47074 6.05591 9.40111 5.9871C9.33147 5.91828 9.26183 5.88387 9.19219 5.88387C9.05292 5.88387 8.93976 6.0043 8.85271 6.24516L7.28586 11.5613C7.26845 11.6129 7.25974 11.6817 7.25974 11.7677C7.25974 12.0258 7.40772 12.1548 7.70368 12.1548H10.6807Z"
         fill="#4285F4" />
@@ -139,16 +196,10 @@
       <path
         d="M80.6543 20C78.9481 20 77.3987 19.6215 76.0059 18.8645C74.6306 18.0903 73.7688 16.8688 73.4206 15.2L73.3945 15.0452C73.3945 14.9247 73.438 14.8301 73.5251 14.7613C73.6295 14.6753 73.7514 14.6323 73.8907 14.6323H77.1288C77.4074 14.6323 77.6076 14.7699 77.7295 15.0452C78.008 15.5957 78.4084 16.0172 78.9307 16.3097C79.453 16.5849 80.0101 16.7226 80.602 16.7226C81.2114 16.7226 81.7075 16.6021 82.0905 16.3613C82.491 16.1204 82.6912 15.8021 82.6912 15.4065C82.6912 14.9591 82.4474 14.6323 81.96 14.4258C81.4725 14.2194 80.6978 14.0129 79.6358 13.8064C78.4694 13.5828 77.5031 13.3419 76.7371 13.0839C75.9711 12.8086 75.3096 12.3613 74.7524 11.7419C74.1953 11.1226 73.9168 10.2796 73.9168 9.2129C73.9168 7.69892 74.4826 6.58064 75.6142 5.85806C76.7458 5.11828 78.1647 4.74839 79.8708 4.74839C81.5944 4.74839 83.0393 5.15269 84.2058 5.96129C85.3896 6.75269 86.1731 7.87957 86.5561 9.34193L86.5822 9.49677C86.5822 9.77204 86.4168 9.90968 86.086 9.90968H82.9523C82.6738 9.90968 82.4735 9.77204 82.3517 9.49677C82.1254 8.98064 81.7859 8.60215 81.3332 8.36129C80.8806 8.12043 80.3844 8 79.8447 8C79.305 8 78.8698 8.10323 78.539 8.30968C78.2256 8.51613 78.069 8.78279 78.069 9.10968C78.069 9.55699 78.3127 9.88387 78.8001 10.0903C79.305 10.2796 80.0972 10.4688 81.1765 10.6581C82.3604 10.8645 83.344 11.0968 84.1274 11.3548C84.9109 11.6129 85.5811 12.043 86.1382 12.6452C86.7127 13.2473 87 14.0731 87 15.1226C87 16.086 86.7389 16.9376 86.2166 17.6774C85.7117 18.4172 84.9805 18.9935 84.023 19.4065C83.0655 19.8022 81.9426 20 80.6543 20Z"
         fill="black" />
+      </a>
     </svg>
     <div class="version">v0.2.0 BETA</div>
-    <input type="text" id="search-input" placeholder="Search icons...">
-    <select id="icon-style" onchange="loadIcons()">
-      <option value="stroke">Outline</option>
-      <option value="fill">Fill</option>
-    </select>
-  </div>
-  <div id="icons-grid" class="icons-grid"></div>
-
+</div>
   <script>
     const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
     const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
