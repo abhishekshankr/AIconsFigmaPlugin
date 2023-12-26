@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+      body{
+        font-family: Inter;
+      }
+
+      label{
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .icons-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .icon {
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: transparent;
+      }
+
+      .icon:hover {
+        background-color: #ebebeb;
+        border-radius: 6px;
+      }
+
+      .icon svg {
+        max-width: 100%;
+        max-height: 100%;
+        pointer-events: none;
+      }
+
+      /* Style the scrollbar - width and background */
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5; /* Light grey background */
+}
+
+/* Style the scrollbar thumb - the part that's draggable */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Darker grey thumb */
+    border-radius: 10px; /* Rounded corners on the thumb */
+    border: 2px solid #f5f5f5; /* Creates a border around the thumb */
+}
+
+/* Style the scrollbar thumb when hovering or clicking on it */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Even darker color on hover */
+}
+    </style>
+</head>
+<body>
+    <div>
+      <label>Select Icon Style: </label>
+      <select id="icon-style" onchange="loadIcons()">
+        <option value="stroke">Stroke</option>
+        <option value="fill">Fill</option>
+      </select>
+    </div>
+    <div id="icons-grid" class="icons-grid"></div>
+
+    <script>
+        const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
+        const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
+
+        function loadIcons() {
+          const style = document.getElementById('icon-style').value;
+          const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
+
+          fetch(source)
+            .then(response => response.json())
+            .then(files => {
+                const grid = document.getElementById('icons-grid');
+                grid.innerHTML = '';
+
+                files.forEach(file => {
+                    fetch(file.download_url)
+                        .then(response => response.text())
+                        .then(svg => {
+                            const icon = document.createElement('span');
+                            icon.classList.add('icon');
+                            icon.innerHTML = svg;
+                            icon.addEventListener('click', () => handleIconClick(svg));
+
+                            grid.appendChild(icon);
+                        });
+                });
+            })
+            .catch(error => console.error('Error loading icons:', error));
+        }
+
+        function handleIconClick(svg) {
+          window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg } }, '*');
+        }
+
+        loadIcons(); // Load icons initially
+    </script>
+</body>
+</html>

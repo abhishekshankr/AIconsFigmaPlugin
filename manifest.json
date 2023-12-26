@@ -1,0 +1,17 @@
+{
+  "name": "AIcons",
+  "id": "1321249969835325622",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html",
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke","https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill", "https://raw.githubusercontent.com"
+    ]
+  }
+}
