@@ -207,7 +207,7 @@
           fill="black" />
       </a>
     </svg>
-    <div class="version">v0.3.1 BETA</div>
+    <div class="version">v0.5.0 BETA</div>
   </div>
   <script>
     const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
@@ -218,6 +218,7 @@
     function loadIcons() {
       const style = document.getElementById('selection').value;
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
+      const searchTerm = document.getElementById('search-input').value;
 
       fetch(source)
         .then(response => response.json())
@@ -233,7 +234,7 @@
           Promise.all(iconFetchPromises)
             .then(icons => {
               currentIcons = icons; // Update the global variable with fetched icons
-              displayIcons(currentIcons); // Display icons initially
+              displayIcons(currentIcons, searchTerm); // Display icons initially
             });
         })
         .catch(error => console.error('Error loading icons:', error));
