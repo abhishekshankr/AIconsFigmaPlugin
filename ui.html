@@ -207,7 +207,7 @@
           fill="black" />
       </a>
     </svg>
-    <div class="version">v0.5.0 BETA</div>
+    <div class="version"></div>
   </div>
   <script>
     const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
@@ -317,10 +317,31 @@
         .catch(error => console.error('Error fetching rate limit:', error));
     }
 
+    async function fetchVersionAndUpdateUI() {
+    // Construct the jsDelivr URL
+    const url = 'https://cdn.jsdelivr.net/gh/abhishekshankr/AIcons@main/package.json';
+
+    try {
+        // Fetch the JSON using jsDelivr
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Extract the version
+        const version = data.version;
+
+        // Update the Figma plugin UI
+        const versionElement = document.querySelector('.version');
+        versionElement.textContent = `v${version} BETA`;
+    } catch (error) {
+        console.error('Error fetching version:', error);
+    }
+}
+
     document.addEventListener('DOMContentLoaded', () => {
       loadIcons(); // Initial load of icons
       handleSearch(); // Set up search functionality
       checkGitHubRateLimit();
+      fetchVersionAndUpdateUI();
     });
     window.onload = function () {
       document.getElementById('search-input').focus();
