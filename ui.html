@@ -210,8 +210,8 @@
     <div class="version"></div>
   </div>
   <script>
-    const STROKE_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke';
-    const FILL_ICONS_SOURCE = 'https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill';
+    const STROKE_ICONS_SOURCE = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/Stroke/iconlist.json';
+    const FILL_ICONS_SOURCE = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/Fill/iconlist.json';
 
     let currentIcons = []; // Global variable to store the current set of icons
 
@@ -308,15 +308,6 @@
       };
     }
 
-    function checkGitHubRateLimit() {
-      fetch('https://api.github.com/rate_limit')
-        .then(response => response.json())
-        .then(data => {
-          console.log('GitHub Rate Limit:', data.rate);
-        })
-        .catch(error => console.error('Error fetching rate limit:', error));
-    }
-
     async function fetchVersionAndUpdateUI() {
     // Construct the jsDelivr URL
     const url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/package.json';
@@ -340,9 +331,9 @@
     document.addEventListener('DOMContentLoaded', () => {
       loadIcons(); // Initial load of icons
       handleSearch(); // Set up search functionality
-      checkGitHubRateLimit();
       fetchVersionAndUpdateUI();
     });
+
     window.onload = function () {
       document.getElementById('search-input').focus();
     };
