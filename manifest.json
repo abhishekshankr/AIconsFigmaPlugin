@@ -11,7 +11,7 @@
   "ui": "ui.html",
   "networkAccess": {
     "allowedDomains": [
-      "https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke","https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill", "https://raw.githubusercontent.com", "https://api.github.com/rate_limit"
+      "https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Stroke","https://api.github.com/repos/abhishekshankr/AIcons/contents/Icons/Fill", "https://raw.githubusercontent.com", "https://api.github.com/rate_limit", "https://cdn.jsdelivr.net/gh/abhishekshankr/AIcons@main/package.json"
     ]
   }
 }
