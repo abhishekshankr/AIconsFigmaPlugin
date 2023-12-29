@@ -13,6 +13,8 @@ figma.ui.onmessage = async msg => {
     node.x = figma.viewport.center.x;
     node.y = figma.viewport.center.y;
 
+    node.constrainProportions = true;
+
     // Add the new node to the current page
     figma.currentPage.appendChild(node);
 
