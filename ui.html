@@ -141,7 +141,6 @@
     }
 
     #search-input::placeholder {
-      /* Styling for placeholder text */
       color: #999;
     }
 
@@ -159,14 +158,11 @@
       width: 100%;
       text-align: center;
       display: flex;
-      flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
+      padding: 16px;
       background-color: #ffffff;
-      /* Light grey background */
       border-top: #d1d1d1 1px solid;
-      /* Light grey background */
     }
 
     .icon:hover .tooltip {
@@ -316,7 +312,6 @@
     }
 
     async function fetchVersionAndUpdateUI() {
-      // Construct the jsDelivr URL
       const url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/package.json';
 
       try {
@@ -329,7 +324,7 @@
 
         // Update the Figma plugin UI
         const versionElement = document.querySelector('.version');
-        versionElement.textContent = `v${version} BETA`;
+        versionElement.textContent = `v${version}`;
       } catch (error) {
         console.error('Error fetching version:', error);
       }
