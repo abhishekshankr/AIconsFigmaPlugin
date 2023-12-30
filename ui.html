@@ -4,8 +4,9 @@
   <style>
     body {
       margin: 0;
-      padding: 8px;
       background-color: #fff;
+      overflow-y: hidden;
+      ;
     }
 
     label {
@@ -19,8 +20,9 @@
       justify-content: flex-start;
       align-items: flex-start;
       width: 100%;
-      margin-top: 60px;
-      margin-bottom: 60px;
+      margin-top: 61px;
+      max-height: calc(100vh - 110px); /* Set a max height */
+      overflow-y: auto; /* Enable vertical scrolling */
     }
 
     .icon {
@@ -46,14 +48,15 @@
     }
 
     ::-webkit-scrollbar {
-      width: 10px;
-      background-color: #f5f5f5;
+      width: 12px;
+      background-color: #ffffff;
     }
 
     ::-webkit-scrollbar-thumb {
       background-color: #c5c5c5;
       border-radius: 10px;
-      border: 2px solid #f5f5f5;
+      transition: background-color 0.3s ease;
+      border: 2px solid #ffffff;
     }
 
     ::-webkit-scrollbar-thumb:hover {
@@ -67,7 +70,9 @@
 
     .version {
       font-family: Inter;
-      margin-left: 8px;
+      margin-right: 48px;
+      margin-left: auto;
+      /* Pushes the select to the right */
       font-size: 10px;
       color: #666;
     }
@@ -93,12 +98,13 @@
       color: 6D6D6D;
       font-size: 14px;
       font-weight: 600;
-      margin-top: 20px;
-      margin-left: 128px;
       text-align: center;
       display: flex;
       flex-direction: column;
       gap: 0px;
+      position: absolute; /* Optional based on your layout */
+      top: 40%;
+      left: 40%;
 
     }
 
@@ -110,7 +116,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 380px;
+      width: 100%;
       background-color: #fff;
       display: flex;
       align-items: center;
@@ -149,11 +155,10 @@
     }
 
     .footer {
-
       position: fixed;
       bottom: 0;
       left: 0;
-      width: 345px;
+      width: 100%;
       text-align: center;
       display: flex;
       flex-direction: row;
