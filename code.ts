@@ -15,6 +15,10 @@ figma.ui.onmessage = async msg => {
 
     node.constrainProportions = true;
 
+    if (figma.editorType === 'figjam') {
+      node.resize(64, 64);
+    }
+
     // Add the new node to the current page
     figma.currentPage.appendChild(node);
 
