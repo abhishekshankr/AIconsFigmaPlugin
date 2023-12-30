@@ -1,16 +1,19 @@
 {
   "name": "AIcons",
-  "version": "1.0.0",
+  "version": "1.1.4",
   "description": "A figma plugin for AIcons, a collection of open source icons built for use with generative AI applications",
   "main": "code.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "webpack",
     "watch": "npm run build -- --watch"
   },
   "author": "Abhishek Shankar",
   "license": "MIT",
   "devDependencies": {
     "@figma/plugin-typings": "*",
-    "typescript": "*"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }
