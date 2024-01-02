@@ -7,7 +7,6 @@
       background-color: var(--figma-color-bg);
       color: var(--figma-color-text);
       overflow-y: hidden;
-      ;
     }
 
     label {
@@ -43,6 +42,7 @@
 
     .icon:hover {
       background-color: var(--figma-color-bg-hover);
+      outline: 1px solid var(--figma-color-border);
       border-radius: 6px;
     }
 
@@ -54,18 +54,18 @@
 
     ::-webkit-scrollbar {
       width: 12px;
-      background-color: #ffffff;
+      background-color: var(--figma-color-bg);
     }
 
     ::-webkit-scrollbar-thumb {
-      background-color: #c5c5c5;
+      background-color: var(--figma-color-bg-disabled-secondary);
       border-radius: 10px;
       transition: background-color 0.3s ease;
-      border: 2px solid #ffffff;
+      border: 2px solid var(--figma-color-bg);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background-color: #555;
+      background-color: var(--figma-color-bg-disabled);
     }
 
     .logo {
@@ -85,11 +85,10 @@
       font-family: Inter;
       margin-right: 24px;
       margin-left: auto;
-      border: 1px solid #ddd;
+      border: 1px solid var(--figma-color-border);
       border-radius: 8px;
       outline: none;
       cursor: pointer;
-      background-color: #f8f8f8;
     }
 
     select:hover {
@@ -98,16 +97,16 @@
 
     .no-results {
       font-family: Inter;
-      color: 6D6D6D;
-      font-size: 14px;
-      font-weight: 600;
+      color: var(--figma-color-text-tertiary);
+      font-size: 18px;
+      font-weight: 500;
       text-align: center;
       display: flex;
       flex-direction: column;
       gap: 0px;
       position: absolute;
       top: 40%;
-      left: 40%;
+      left: 35%;
     }
 
     .search-container {
@@ -119,13 +118,13 @@
       top: 0;
       left: 0;
       width: 100%;
-      background-color: #fff;
+      background-color: none;
       display: flex;
       align-items: center;
       padding: 12px 16px;
       z-index: 1000;
       margin-bottom: 16px;
-      border-bottom: #d1d1d1 1px solid;
+      border-bottom: 1px solid var(--figma-color-border);
     }
 
     #search-input {
@@ -145,13 +144,13 @@
     }
 
     #search-input::placeholder {
-      color: var(--figma-color-text-onbrand-tertiary);
+      color: var(--figma-color-text-tertiary);
       ;
     }
 
     #selection {
       padding: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--figma-color-border-disabled-strong);
       border-radius: 8px;
       background-color: var(--figma-color-bg);
       color: var(--figma-color-text);
@@ -167,8 +166,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
-      background-color: #ffffff;
-      border-top: #d1d1d1 1px solid;
+      background-color: var(--figma-color-bg);
+      border-top: 1px solid var(--figma-color-border);
     }
 
     .icon:hover .tooltip {
@@ -231,7 +230,7 @@
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
       const searchTerm = document.getElementById('search-input').value;
       let url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/' + source + '/iconlist.json';
-      
+
       fetch(url)
         .then(response => response.json())
         .then(files => {
@@ -246,7 +245,7 @@
 
           Promise.all(iconFetchPromises)
             .then(icons => {
-              
+
               currentIcons = icons; // Update the global variable with fetched icons
               displayIcons(currentIcons, searchTerm); // Display icons initially
             });
@@ -269,10 +268,10 @@
         // Create an SVG element using innerHTML
         const svgElement = document.createElement('div');
         svgElement.innerHTML = `
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 9C14.5523 9 15 9.44771 15 10V15C15 15.5523 14.5523 16 14 16C13.4477 16 13 15.5523 13 15V10C13 9.44771 13.4477 9 14 9Z" fill="#6D6D6D"/>
-            <path d="M15 18C15 18.5523 14.5523 19 14 19C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17C14.5523 17 15 17.4477 15 18Z" fill="#6D6D6D"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14C24 16.4013 23.1536 18.6048 21.743 20.3287L27.2072 25.7929C27.5977 26.1834 27.5977 26.8166 27.2072 27.2071C26.8167 27.5976 26.1835 27.5976 25.793 27.2071L20.3288 21.7429C18.6049 23.1536 16.4013 24 14 24C8.47715 24 4 19.5228 4 14ZM14 6C9.58172 6 6 9.58172 6 14C6 18.4183 9.58172 22 14 22C18.4183 22 22 18.4183 22 14C22 9.58172 18.4183 6 14 6Z" fill="#6D6D6D"/>
+        <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 9C14.5523 9 15 9.44771 15 10V15C15 15.5523 14.5523 16 14 16C13.4477 16 13 15.5523 13 15V10C13 9.44771 13.4477 9 14 9Z" fill=var(--figma-color-icon-tertiary) />
+            <path d="M15 18C15 18.5523 14.5523 19 14 19C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17C14.5523 17 15 17.4477 15 18Z" fill=var(--figma-color-icon-tertiary) />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14C24 16.4013 23.1536 18.6048 21.743 20.3287L27.2072 25.7929C27.5977 26.1834 27.5977 26.8166 27.2072 27.2071C26.8167 27.5976 26.1835 27.5976 25.793 27.2071L20.3288 21.7429C18.6049 23.1536 16.4013 24 14 24C8.47715 24 4 19.5228 4 14ZM14 6C9.58172 6 6 9.58172 6 14C6 18.4183 9.58172 22 14 22C18.4183 22 22 18.4183 22 14C22 9.58172 18.4183 6 14 6Z" fill=var(--figma-color-icon-tertiary) />
         </svg>
     `;
 
@@ -288,23 +287,23 @@
       } else {
         filteredIcons.forEach(({ svg, name }) => {
           const iconElement = document.createElement('span');
-      iconElement.classList.add('icon');
+          iconElement.classList.add('icon');
 
-      // Create a temporary container for the SVG
-      const tempContainer = document.createElement('div');
-      tempContainer.innerHTML = svg;
+          // Create a temporary container for the SVG
+          const tempContainer = document.createElement('div');
+          tempContainer.innerHTML = svg;
 
-      // Set the CSS variable as the fill for every path in the SVG
-      const paths = tempContainer.querySelectorAll('path');
-      paths.forEach(path => {
-        path.setAttribute('fill', 'var(--figma-color-text)');
-      });
+          // Set the CSS variable as the fill for every path in the SVG
+          const paths = tempContainer.querySelectorAll('path');
+          paths.forEach(path => {
+            path.setAttribute('fill', 'var(--figma-color-text)');
+          });
 
-      // Update the innerHTML of the iconElement with the modified SVG
-      iconElement.innerHTML = tempContainer.innerHTML;
+          // Update the innerHTML of the iconElement with the modified SVG
+          iconElement.innerHTML = tempContainer.innerHTML;
 
-      iconElement.addEventListener('click', () => handleIconClick(tempContainer.innerHTML, name));
-      grid.appendChild(iconElement);
+          iconElement.addEventListener('click', () => handleIconClick(tempContainer.innerHTML, name));
+          grid.appendChild(iconElement);
         });
       }
     }
