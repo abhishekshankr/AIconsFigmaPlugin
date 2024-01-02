@@ -224,7 +224,7 @@
       const style = document.getElementById('selection').value;
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
       const searchTerm = document.getElementById('search-input').value;
-      let url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/update-github-actions/Icons/' + source + '/iconlist.json';
+      let url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/' + source + '/iconlist.json';
       
       fetch(url)
         .then(response => response.json())
@@ -232,7 +232,7 @@
           files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
           const iconFetchPromises = files.map(file => {
-            download_url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/update-github-actions/Icons/' + source + '/' + file.name;
+            download_url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/' + source + '/' + file.name;
             return fetch(download_url)
               .then(response => response.text())
               .then(svg => ({ svg, name: file.name }));
