@@ -215,23 +215,25 @@
     <div class="version"></div>
   </div>
   <script>
-    const STROKE_ICONS_SOURCE = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/Stroke/iconlist.json';
-    const FILL_ICONS_SOURCE = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/Fill/iconlist.json';
+    const STROKE_ICONS_SOURCE = 'Stroke';
+    const FILL_ICONS_SOURCE = 'Fill';
 
     let currentIcons = []; // Global variable to store the current set of icons
-
+    let download_url = '';
     function loadIcons() {
       const style = document.getElementById('selection').value;
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
       const searchTerm = document.getElementById('search-input').value;
-
-      fetch(source)
+      let url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/update-github-actions/Icons/' + source + '/iconlist.json';
+      
+      fetch(url)
         .then(response => response.json())
         .then(files => {
           files.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
           const iconFetchPromises = files.map(file => {
-            return fetch(file.download_url)
+            download_url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/update-github-actions/Icons/' + source + '/' + file.name;
+            return fetch(download_url)
               .then(response => response.text())
               .then(svg => ({ svg, name: file.name }));
           });
