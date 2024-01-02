@@ -1,4 +1,4 @@
-figma.showUI(__html__, { width: 435, height: 500 });
+figma.showUI(__html__, { themeColors: true, width: 435, height: 500 });
 
 figma.ui.onmessage = async msg => {
   if (msg.type === 'create-icon') {

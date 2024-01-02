@@ -4,14 +4,15 @@
   <style>
     body {
       margin: 0;
-      background-color: #fff;
+      background-color: var(--figma-color-bg);
+      color: var(--figma-color-text);
       overflow-y: hidden;
-      ;
     }
 
     label {
       font-size: 14px;
       font-weight: 600;
+      color: var(--figma-color-text);
     }
 
     .icons-grid {
@@ -40,7 +41,8 @@
     }
 
     .icon:hover {
-      background-color: #ebebeb;
+      background-color: var(--figma-color-bg-hover);
+      outline: 1px solid var(--figma-color-border);
       border-radius: 6px;
     }
 
@@ -52,18 +54,18 @@
 
     ::-webkit-scrollbar {
       width: 12px;
-      background-color: #ffffff;
+      background-color: var(--figma-color-bg);
     }
 
     ::-webkit-scrollbar-thumb {
-      background-color: #c5c5c5;
+      background-color: var(--figma-color-bg-disabled-secondary);
       border-radius: 10px;
       transition: background-color 0.3s ease;
-      border: 2px solid #ffffff;
+      border: 2px solid var(--figma-color-bg);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background-color: #555;
+      background-color: var(--figma-color-bg-disabled);
     }
 
     .logo {
@@ -76,18 +78,17 @@
       margin-right: 48px;
       margin-left: auto;
       font-size: 10px;
-      color: #666;
+      color: var(--figma-color-text);
     }
 
     select {
       font-family: Inter;
       margin-right: 24px;
       margin-left: auto;
-      border: 1px solid #ddd;
+      border: 1px solid var(--figma-color-border);
       border-radius: 8px;
       outline: none;
       cursor: pointer;
-      background-color: #f8f8f8;
     }
 
     select:hover {
@@ -96,16 +97,16 @@
 
     .no-results {
       font-family: Inter;
-      color: 6D6D6D;
-      font-size: 14px;
-      font-weight: 600;
+      color: var(--figma-color-text-tertiary);
+      font-size: 18px;
+      font-weight: 500;
       text-align: center;
       display: flex;
       flex-direction: column;
       gap: 0px;
       position: absolute;
       top: 40%;
-      left: 40%;
+      left: 35%;
     }
 
     .search-container {
@@ -117,13 +118,13 @@
       top: 0;
       left: 0;
       width: 100%;
-      background-color: #fff;
+      background-color: none;
       display: flex;
       align-items: center;
       padding: 12px 16px;
       z-index: 1000;
       margin-bottom: 16px;
-      border-bottom: #d1d1d1 1px solid;
+      border-bottom: 1px solid var(--figma-color-border);
     }
 
     #search-input {
@@ -133,6 +134,8 @@
       padding: 10px;
       margin: 0px 12px;
       border: none;
+      background-color: var(--figma-color-bg);
+      color: var(--figma-color-text);
       /* border-bottom: #bdbdbd 1px solid; */
     }
 
@@ -141,14 +144,16 @@
     }
 
     #search-input::placeholder {
-      color: #999;
+      color: var(--figma-color-text-tertiary);
+      ;
     }
 
     #selection {
       padding: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid var(--figma-color-border-disabled-strong);
       border-radius: 8px;
-      background-color: white;
+      background-color: var(--figma-color-bg);
+      color: var(--figma-color-text);
     }
 
     .footer {
@@ -161,8 +166,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
-      background-color: #ffffff;
-      border-top: #d1d1d1 1px solid;
+      background-color: var(--figma-color-bg);
+      border-top: 1px solid var(--figma-color-border);
     }
 
     .icon:hover .tooltip {
@@ -200,16 +205,16 @@
           fill="#4285F4" />
         <path
           d="M33.3878 20C31.8558 20 30.5065 19.6817 29.3401 19.0452C28.1911 18.4086 27.2945 17.514 26.6503 16.3613C26.0062 15.1914 25.6841 13.8323 25.6841 12.2839C25.6841 10.8043 25.9975 9.49677 26.6242 8.36129C27.2684 7.2086 28.1737 6.32258 29.3401 5.70322C30.5065 5.06667 31.8558 4.74839 33.3878 4.74839C35.1287 4.74839 36.626 5.16129 37.8794 5.9871C39.1503 6.8129 40.0208 7.93978 40.4909 9.36774C40.5083 9.40215 40.517 9.46236 40.517 9.54839C40.517 9.66882 40.4734 9.76344 40.3864 9.83226C40.2993 9.90107 40.1862 9.93548 40.0469 9.93548H36.2865C36.0079 9.93548 35.8077 9.79785 35.6858 9.52258C35.268 8.62796 34.502 8.18064 33.3878 8.18064C32.4129 8.18064 31.6381 8.55054 31.0636 9.29032C30.4891 10.0129 30.2019 11.0108 30.2019 12.2839C30.2019 13.6086 30.4891 14.6495 31.0636 15.4065C31.6381 16.1634 32.4129 16.5419 33.3878 16.5419C34.589 16.5419 35.3812 16.0516 35.7642 15.071C35.8686 14.7785 36.0689 14.6323 36.3648 14.6323H40.073C40.2645 14.6323 40.3951 14.6839 40.4647 14.7871C40.5518 14.8731 40.5779 15.0021 40.5431 15.1742C40.0904 16.6882 39.22 17.8753 37.9317 18.7355C36.6608 19.5785 35.1462 20 33.3878 20Z"
-          fill="black" />
+          fill=var(--figma-color-text) />
         <path
           d="M49.2081 20C47.6761 20 46.3181 19.6817 45.1343 19.0452C43.9678 18.4086 43.0538 17.5054 42.3923 16.3355C41.7481 15.1656 41.4261 13.8151 41.4261 12.2839C41.4261 10.8043 41.7481 9.49677 42.3923 8.36129C43.0538 7.2086 43.9678 6.32258 45.1343 5.70322C46.3181 5.06667 47.6761 4.74839 49.2081 4.74839C50.7401 4.74839 52.0894 5.06667 53.2558 5.70322C54.4396 6.33978 55.3536 7.22581 55.9978 8.36129C56.6593 9.49677 56.9901 10.8043 56.9901 12.2839C56.9901 13.8151 56.668 15.1656 56.0239 16.3355C55.3797 17.5054 54.4657 18.4086 53.2819 19.0452C52.1155 19.6817 50.7575 20 49.2081 20ZM49.2081 16.2839C50.2004 16.2839 50.9839 15.9226 51.5584 15.2C52.1329 14.4602 52.4201 13.4882 52.4201 12.2839C52.4201 11.1312 52.1242 10.2022 51.5323 9.49677C50.9577 8.7914 50.183 8.43871 49.2081 8.43871C48.2332 8.43871 47.441 8.7914 46.8317 9.49677C46.2398 10.2022 45.9438 11.1312 45.9438 12.2839C45.9438 13.5054 46.2398 14.4774 46.8317 15.2C47.4236 15.9226 48.2158 16.2839 49.2081 16.2839Z"
-          fill="black" />
+          fill=var(--figma-color-text) />
         <path
           d="M59.005 19.6903C58.6568 19.6903 58.4827 19.5183 58.4827 19.1742V5.57419C58.4827 5.23011 58.6568 5.05806 59.005 5.05806H62.3476C62.6958 5.05806 62.8699 5.23011 62.8699 5.57419V5.72903C62.8699 5.9871 62.9395 6.11613 63.0788 6.11613C63.2007 6.11613 63.3225 6.04731 63.4444 5.90968C63.8622 5.49677 64.3323 5.2043 64.8546 5.03226C65.3769 4.84301 65.9775 4.74839 66.6564 4.74839C69.0938 4.74839 70.6867 5.5914 71.4353 7.27742C71.6965 7.84516 71.8532 8.4215 71.9054 9.00645C71.975 9.57419 72.0099 10.4086 72.0099 11.5097V19.1742C72.0099 19.5183 71.8358 19.6903 71.4876 19.6903H68.145C67.7968 19.6903 67.6227 19.5183 67.6227 19.1742V11.4581C67.6227 10.7355 67.5704 10.1677 67.466 9.75484C67.3789 9.34193 67.2223 9.01505 66.9959 8.77419C66.6477 8.4129 66.1081 8.23226 65.3769 8.23226C64.4367 8.23226 63.7839 8.48172 63.4183 8.98064C63.0527 9.46236 62.8699 10.2882 62.8699 11.4581V19.1742C62.8699 19.5183 62.6958 19.6903 62.3476 19.6903H59.005Z"
-          fill="black" />
+          fill=var(--figma-color-text) />
         <path
           d="M80.6543 20C78.9481 20 77.3987 19.6215 76.0059 18.8645C74.6306 18.0903 73.7688 16.8688 73.4206 15.2L73.3945 15.0452C73.3945 14.9247 73.438 14.8301 73.5251 14.7613C73.6295 14.6753 73.7514 14.6323 73.8907 14.6323H77.1288C77.4074 14.6323 77.6076 14.7699 77.7295 15.0452C78.008 15.5957 78.4084 16.0172 78.9307 16.3097C79.453 16.5849 80.0101 16.7226 80.602 16.7226C81.2114 16.7226 81.7075 16.6021 82.0905 16.3613C82.491 16.1204 82.6912 15.8021 82.6912 15.4065C82.6912 14.9591 82.4474 14.6323 81.96 14.4258C81.4725 14.2194 80.6978 14.0129 79.6358 13.8064C78.4694 13.5828 77.5031 13.3419 76.7371 13.0839C75.9711 12.8086 75.3096 12.3613 74.7524 11.7419C74.1953 11.1226 73.9168 10.2796 73.9168 9.2129C73.9168 7.69892 74.4826 6.58064 75.6142 5.85806C76.7458 5.11828 78.1647 4.74839 79.8708 4.74839C81.5944 4.74839 83.0393 5.15269 84.2058 5.96129C85.3896 6.75269 86.1731 7.87957 86.5561 9.34193L86.5822 9.49677C86.5822 9.77204 86.4168 9.90968 86.086 9.90968H82.9523C82.6738 9.90968 82.4735 9.77204 82.3517 9.49677C82.1254 8.98064 81.7859 8.60215 81.3332 8.36129C80.8806 8.12043 80.3844 8 79.8447 8C79.305 8 78.8698 8.10323 78.539 8.30968C78.2256 8.51613 78.069 8.78279 78.069 9.10968C78.069 9.55699 78.3127 9.88387 78.8001 10.0903C79.305 10.2796 80.0972 10.4688 81.1765 10.6581C82.3604 10.8645 83.344 11.0968 84.1274 11.3548C84.9109 11.6129 85.5811 12.043 86.1382 12.6452C86.7127 13.2473 87 14.0731 87 15.1226C87 16.086 86.7389 16.9376 86.2166 17.6774C85.7117 18.4172 84.9805 18.9935 84.023 19.4065C83.0655 19.8022 81.9426 20 80.6543 20Z"
-          fill="black" />
+          fill=var(--figma-color-text) />
       </a>
     </svg>
     <div class="version"></div>
@@ -225,7 +230,7 @@
       const source = style === 'stroke' ? STROKE_ICONS_SOURCE : FILL_ICONS_SOURCE;
       const searchTerm = document.getElementById('search-input').value;
       let url = 'https://raw.githubusercontent.com/abhishekshankr/AIcons/main/Icons/' + source + '/iconlist.json';
-      
+
       fetch(url)
         .then(response => response.json())
         .then(files => {
@@ -240,6 +245,7 @@
 
           Promise.all(iconFetchPromises)
             .then(icons => {
+
               currentIcons = icons; // Update the global variable with fetched icons
               displayIcons(currentIcons, searchTerm); // Display icons initially
             });
@@ -262,10 +268,10 @@
         // Create an SVG element using innerHTML
         const svgElement = document.createElement('div');
         svgElement.innerHTML = `
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 9C14.5523 9 15 9.44771 15 10V15C15 15.5523 14.5523 16 14 16C13.4477 16 13 15.5523 13 15V10C13 9.44771 13.4477 9 14 9Z" fill="#6D6D6D"/>
-            <path d="M15 18C15 18.5523 14.5523 19 14 19C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17C14.5523 17 15 17.4477 15 18Z" fill="#6D6D6D"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14C24 16.4013 23.1536 18.6048 21.743 20.3287L27.2072 25.7929C27.5977 26.1834 27.5977 26.8166 27.2072 27.2071C26.8167 27.5976 26.1835 27.5976 25.793 27.2071L20.3288 21.7429C18.6049 23.1536 16.4013 24 14 24C8.47715 24 4 19.5228 4 14ZM14 6C9.58172 6 6 9.58172 6 14C6 18.4183 9.58172 22 14 22C18.4183 22 22 18.4183 22 14C22 9.58172 18.4183 6 14 6Z" fill="#6D6D6D"/>
+        <svg width="48" height="48" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 9C14.5523 9 15 9.44771 15 10V15C15 15.5523 14.5523 16 14 16C13.4477 16 13 15.5523 13 15V10C13 9.44771 13.4477 9 14 9Z" fill=var(--figma-color-icon-tertiary) />
+            <path d="M15 18C15 18.5523 14.5523 19 14 19C13.4477 19 13 18.5523 13 18C13 17.4477 13.4477 17 14 17C14.5523 17 15 17.4477 15 18Z" fill=var(--figma-color-icon-tertiary) />
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14C24 16.4013 23.1536 18.6048 21.743 20.3287L27.2072 25.7929C27.5977 26.1834 27.5977 26.8166 27.2072 27.2071C26.8167 27.5976 26.1835 27.5976 25.793 27.2071L20.3288 21.7429C18.6049 23.1536 16.4013 24 14 24C8.47715 24 4 19.5228 4 14ZM14 6C9.58172 6 6 9.58172 6 14C6 18.4183 9.58172 22 14 22C18.4183 22 22 18.4183 22 14C22 9.58172 18.4183 6 14 6Z" fill=var(--figma-color-icon-tertiary) />
         </svg>
     `;
 
@@ -282,8 +288,21 @@
         filteredIcons.forEach(({ svg, name }) => {
           const iconElement = document.createElement('span');
           iconElement.classList.add('icon');
-          iconElement.innerHTML = svg;
-          iconElement.addEventListener('click', () => handleIconClick(svg, name));
+
+          // Create a temporary container for the SVG
+          const tempContainer = document.createElement('div');
+          tempContainer.innerHTML = svg;
+
+          // Set the CSS variable as the fill for every path in the SVG
+          const paths = tempContainer.querySelectorAll('path');
+          paths.forEach(path => {
+            path.setAttribute('fill', 'var(--figma-color-text)');
+          });
+
+          // Update the innerHTML of the iconElement with the modified SVG
+          iconElement.innerHTML = tempContainer.innerHTML;
+
+          iconElement.addEventListener('click', () => handleIconClick(tempContainer.innerHTML, name));
           grid.appendChild(iconElement);
         });
       }
@@ -330,6 +349,23 @@
       } catch (error) {
         console.error('Error fetching version:', error);
       }
+    }
+
+    function colorSwitcher() {
+      // Select all SVG icons
+      const icons = document.querySelectorAll('.icon');
+
+      // Loop over the icons
+      icons.forEach(icon => {
+        // Select all path elements within the current icon
+        const paths = icon.querySelectorAll('path');
+
+        // Loop over the paths
+        paths.forEach(path => {
+          // Change the fill color
+          path.style.setProperty('fill', 'var(--figma-color-text)');
+        });
+      });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
