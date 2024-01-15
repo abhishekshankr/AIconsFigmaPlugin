@@ -13,6 +13,7 @@
   "networkAccess": {
     "allowedDomains": [
       "https://raw.githubusercontent.com"
-    ]
+    ],
+    "reasoning": "AIcons needs to access the GitHub repository to fetch the icons SVGs"
   }
 }
