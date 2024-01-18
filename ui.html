@@ -170,11 +170,6 @@
       border-top: 1px solid var(--figma-color-border);
     }
 
-    .icon:hover .tooltip {
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0px);
-    }
   </style>
 </head>
 
@@ -289,6 +284,9 @@
           const iconElement = document.createElement('span');
           iconElement.classList.add('icon');
 
+          // Assuming name is the variable holding the file name
+          let nameWithoutExtension = name.replace(/\.svg$/, '');
+          iconElement.setAttribute('title', nameWithoutExtension);
           // Create a temporary container for the SVG
           const tempContainer = document.createElement('div');
           tempContainer.innerHTML = svg;
