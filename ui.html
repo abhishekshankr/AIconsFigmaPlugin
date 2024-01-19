@@ -169,7 +169,6 @@
       background-color: var(--figma-color-bg);
       border-top: 1px solid var(--figma-color-border);
     }
-
   </style>
 </head>
 
@@ -287,6 +286,10 @@
           // Assuming name is the variable holding the file name
           let nameWithoutExtension = name.replace(/\.svg$/, '');
           iconElement.setAttribute('title', nameWithoutExtension);
+
+          //Set draggable event
+          iconElement.setAttribute('draggable', true);
+
           // Create a temporary container for the SVG
           const tempContainer = document.createElement('div');
           tempContainer.innerHTML = svg;
@@ -300,22 +303,39 @@
           // Update the innerHTML of the iconElement with the modified SVG
           iconElement.innerHTML = tempContainer.innerHTML;
 
-          iconElement.addEventListener('click', () => handleIconClick(tempContainer.innerHTML, name));
+          iconElement.addEventListener('click', () => handleIconClick(tempContainer.innerHTML, nameWithoutExtension));
+          
+          // In UI
+iconElement.addEventListener('dragend', e => {
+  // Don't proceed if the item was dropped inside the plugin window.
+  if (e.view.length === 0) return
+
+  window.parent.postMessage(
+    {
+      pluginDrop: {
+        clientX: e.clientX,
+        clientY: e.clientY,
+        items: [{ type: 'image/svg+xml', data: e.target.innerHTML }],
+        dropMetadata: { name: nameWithoutExtension },
+      }
+    },
+    '*'
+  )
+})
           grid.appendChild(iconElement);
         });
       }
     }
 
     function handleIconClick(svg, name) {
-      const iconName = name.replace(/\.[^/.]+$/, "");
-      window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name: iconName } }, '*');
+      window.parent.postMessage({ pluginMessage: { type: 'create-icon', svg, name } }, '*');
     }
 
     function handleSearch() {
       const searchInput = document.getElementById('search-input');
       searchInput.addEventListener('input', debounce(() => {
         const searchTerm = searchInput.value.trim();
-        console.log('Search Term:', searchTerm); // Debugging log
+        //console.log('Search Term:', searchTerm); // Debugging log
         displayIcons(currentIcons, searchTerm);
       }, 250));
     }

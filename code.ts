@@ -1,6 +1,8 @@
 figma.showUI(__html__, { themeColors: true, width: 435, height: 500 });
 
 let lastAppendedIcon: SceneNode | null = null; // Track the last appended icon on the page
+// In plugin code
+
 
 figma.ui.onmessage = async msg => {
   if (msg.type === 'create-icon') {
@@ -56,4 +58,23 @@ figma.on('selectionchange', () => {
   if (lastAppendedIcon && !currentSelection.some(node => node === lastAppendedIcon)) {
     lastAppendedIcon = null;
   }
+});
+
+// In plugin code
+figma.on('drop', (event: DropEvent) => {
+  const { items, dropMetadata } = event;
+
+  if (items.length > 0 && items[0].type === 'image/svg+xml') {
+    const data = items[0].data
+
+    const newNode = figma.createNodeFromSvg(data);
+    newNode.x = event.absoluteX;
+    newNode.y = event.absoluteY;
+
+    newNode.name = dropMetadata.name;
+
+    figma.currentPage.selection = [newNode];
+  }
+
+  return false;
 });
