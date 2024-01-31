@@ -5,13 +5,16 @@
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "watch": "npm run build -- --watch"
+    "watch": "npm run build -- --watch",
+    "format": "npx prettier . --write"
   },
   "author": "Abhishek Shankar",
   "license": "MIT",
   "devDependencies": {
     "@figma/plugin-typings": "*",
-    "prettier": "3.2.4",
     "typescript": "*"
+  },
+  "dependencies": {
+    "prettier": "^3.2.4"
   }
 }
