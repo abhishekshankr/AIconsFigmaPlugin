@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "@figma/plugin-typings": "*",
+    "prettier": "3.2.4",
     "typescript": "*"
   }
 }
