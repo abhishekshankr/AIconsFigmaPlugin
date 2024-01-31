@@ -3,22 +3,24 @@ figma.showUI(__html__, { themeColors: true, width: 435, height: 500 });
 let lastAppendedIcon: SceneNode | null = null; // Track the last appended icon on the page
 // In plugin code
 
-
-figma.ui.onmessage = async msg => {
-  if (msg.type === 'create-icon') {
+figma.ui.onmessage = async (msg) => {
+  if (msg.type === "create-icon") {
     const svg = msg.svg;
     const name = msg.name;
     const node = await figma.createNodeFromSvg(svg);
     node.name = name;
     node.constrainProportions = true;
 
-    if (figma.editorType === 'figjam') {
+    if (figma.editorType === "figjam") {
       node.resize(64, 64);
     }
 
     const selection = figma.currentPage.selection;
 
-    if (selection.find(node => node === lastAppendedIcon) && lastAppendedIcon) {
+    if (
+      selection.find((node) => node === lastAppendedIcon) &&
+      lastAppendedIcon
+    ) {
       appendToParentOrPage(node, lastAppendedIcon);
     } else if (selection.length > 0) {
       const selectedNode = selection[selection.length - 1];
@@ -37,13 +39,19 @@ function appendToPage(node: SceneNode) {
 }
 
 function appendToParentOrPage(node: SceneNode, referenceNode: SceneNode) {
-  const parent = referenceNode.parent && referenceNode.parent.type === 'FRAME' ? referenceNode.parent : figma.currentPage;
+  const parent =
+    referenceNode.parent && referenceNode.parent.type === "FRAME"
+      ? referenceNode.parent
+      : figma.currentPage;
   parent.appendChild(node);
   positionNodeToTheRight(node, referenceNode);
 }
 
-function positionNodeToTheRight(node: SceneNode, referenceNode: SceneNode | null) {
-  if (referenceNode && 'x' in referenceNode) {
+function positionNodeToTheRight(
+  node: SceneNode,
+  referenceNode: SceneNode | null,
+) {
+  if (referenceNode && "x" in referenceNode) {
     node.x = referenceNode.x + referenceNode.width + 10; // 10 is the gap between icons
     node.y = referenceNode.y;
   } else {
@@ -53,19 +61,22 @@ function positionNodeToTheRight(node: SceneNode, referenceNode: SceneNode | null
   lastAppendedIcon = node;
 }
 
-figma.on('selectionchange', () => {
+figma.on("selectionchange", () => {
   const currentSelection = figma.currentPage.selection;
-  if (lastAppendedIcon && !currentSelection.some(node => node === lastAppendedIcon)) {
+  if (
+    lastAppendedIcon &&
+    !currentSelection.some((node) => node === lastAppendedIcon)
+  ) {
     lastAppendedIcon = null;
   }
 });
 
 // In plugin code
-figma.on('drop', (event: DropEvent) => {
+figma.on("drop", (event: DropEvent) => {
   const { items, dropMetadata } = event;
 
-  if (items.length > 0 && items[0].type === 'image/svg+xml') {
-    const data = items[0].data
+  if (items.length > 0 && items[0].type === "image/svg+xml") {
+    const data = items[0].data;
 
     const newNode = figma.createNodeFromSvg(data);
     newNode.x = event.absoluteX;

@@ -5,15 +5,10 @@
   "main": "code.js",
   "capabilities": [],
   "enableProposedApi": false,
-  "editorType": [
-    "figma",
-    "figjam"
-  ],
+  "editorType": ["figma", "figjam"],
   "ui": "ui.html",
   "networkAccess": {
-    "allowedDomains": [
-      "https://raw.githubusercontent.com"
-    ],
+    "allowedDomains": ["https://raw.githubusercontent.com"],
     "reasoning": "AIcons needs to access the GitHub repository to fetch the icons SVGs"
   }
 }
